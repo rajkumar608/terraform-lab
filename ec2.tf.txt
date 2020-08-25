@@ -1,0 +1,10 @@
+provider "aws" {
+  access_key = "ACCESS-ID"
+  secret_key = "SECRET-KEY-ID"
+  region     = "ap-south-1"
+}
+
+resource "aws_instance" "Raj" {
+  ami           = "ami-id"
+  instance_type = "t2.micro"
+}
