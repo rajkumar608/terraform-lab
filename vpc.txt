@@ -1,0 +1,75 @@
+provider "aws" {
+  region     = "us-east-2"
+  access_key = "AKIA3YVPSDEK3JE4LMUE"
+  secret_key = "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"
+}
+
+resource "aws_vpc" "Terra-vpc" {
+  cidr_block       = "10.0.0.0/16"
+
+
+  tags = {
+    Name = "Terra-vpc"
+  }
+}
+
+resource "aws_internet_gateway" "igw" {
+  vpc_id = "${aws_vpc.Terra-vpc.id}"
+
+  tags = {
+    Name = "VPC-Terra-IGW"
+  }
+}
+
+
+
+resource "aws_subnet" "public-subnet" {
+  vpc_id     = "${aws_vpc.Terra-vpc.id}"
+  cidr_block = "10.0.0.0/24"
+
+  tags = {
+    Name = "public-subnet-10.0.0.0/24"
+  }
+}
+
+resource "aws_subnet" "private-subnet" {
+  vpc_id     = "${aws_vpc.Terra-vpc.id}"
+  cidr_block = "10.0.1.0/24"
+
+  tags = {
+    Name = "private-subnet-10.0.1.0/24"
+  }
+}
+
+resource "aws_route_table" "public-rt" {
+  vpc_id     = "${aws_vpc.Terra-vpc.id}"
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_internet_gateway.igw.id}"
+  }
+
+
+
+  tags = {
+    Name = "public-subnet-10.0.0.0/24"
+  }
+}
+
+
+
+resource "aws_security_group" "allow_ssh" {
+  name        = "allow_all_ssh"
+  description = "Allow all inbound ssh traffic "
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "allow_all_ssh"
+  }
+}
