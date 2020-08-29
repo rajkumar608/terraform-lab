@@ -1,7 +1,7 @@
 provider "aws" {
-  region     = "us-east-2"
-  access_key = "AKIA3YVPSDEK3JE4LMUE"
-  secret_key = "f3u3uvn38TRtDWFrsKZLXzbpdBkyDHUfRTvGChWD"
+  region     = "example"
+  access_key = "example"
+  secret_key = "example"
 }
 
 resource "aws_vpc" "Terra-vpc" {
