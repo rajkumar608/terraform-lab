@@ -1,7 +1,7 @@
 provider "aws" {
-  region     = "example"
-  access_key = "example"
-  secret_key = "example"
+  region     = "region"
+  access_key = "Access-ID"
+  secret_key = "Secrete-key-ID"
 }
 
 resource "aws_vpc" "Terra-vpc" {
